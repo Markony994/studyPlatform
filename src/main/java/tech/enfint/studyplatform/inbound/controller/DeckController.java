@@ -55,9 +55,8 @@ public class DeckController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @PutMapping(path = "update/deck/{name}", produces = "application/json", consumes = "application/json")
-    public void updatePost(@PathVariable(name = "name") String name,
-                           @RequestBody @Valid DeckRequestDTO deckRequestDTO)
+    @PutMapping(path = "/{name}", produces = "application/json", consumes = "application/json")
+    public void updateDeck(@RequestBody @Valid DeckRequestDTO deckRequestDTO)
             throws DeckException, WebExchangeBindException
     {
 
@@ -75,41 +74,38 @@ public class DeckController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = {"order/deck/{name}/byName/{ordering}"}, produces = "application/json")
-    public List<DeckResponseDTO> orderDecksByName(@PathVariable(name = "name") String name,
-            @PathVariable(name = "ordering") String ordering)
+    @GetMapping(path = {"orderByName/{ordering}"}, produces = "application/json")
+    public List<DeckResponseDTO> orderDecksByName(@PathVariable(name = "ordering") String ordering)
             throws DeckException
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = {"order/deck/{name}/byDescription/{ordering}"}, produces = "application/json")
-    public List<DeckResponseDTO> orderDecksByDescription(@PathVariable(name = "name") String name,
-            @PathVariable(name = "ordering") String ordering)
+    @GetMapping(path = {"orderByDescription/{ordering}"}, produces = "application/json")
+    public List<DeckResponseDTO> orderDecksByDescription(@PathVariable(name = "ordering") String ordering)
             throws DeckException
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = {"order/deck/{name}/byCreationDate/{ordering}"}, produces = "application/json")
-    public List<DeckResponseDTO> orderDecksByCreationDate(@PathVariable(name = "name") String name,
-            @PathVariable(name = "ordering") String ordering)
+    @GetMapping(path = {"orderByCreationDate/{ordering}"}, produces = "application/json")
+    public List<DeckResponseDTO> orderDecksByCreationDate(@PathVariable(name = "ordering") String ordering)
             throws DeckException
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "deckCards/{name}", produces = "application/json")
+    @GetMapping(path = "{name}/", produces = "application/json")
     public List<FlashCardResponseDTO> getDeckCards(@PathVariable(name = "name") String name)
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "deckCards/{name}/filterByWords/{words}", produces = "application/json")
+    @GetMapping(path = "{name}/filterCardsByWords/{words}", produces = "application/json")
     public List<FlashCardResponseDTO> filterDeckCards(@PathVariable(name = "name") String name,
                                                       @PathVariable(name = "words") List<String> words)
     {
@@ -117,21 +113,21 @@ public class DeckController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "deckCards/{name}/orderByQuestions/{ordering}", produces = "application/json")
+    @GetMapping(path = "{name}/orderCardsByQuestions/{ordering}", produces = "application/json")
     public List<FlashCardResponseDTO> orderDeckCardsByQuestions(@PathVariable(name = "ordering") String ordering)
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "deckCards/{name}/orderByAnswers/{ordering}", produces = "application/json")
+    @GetMapping(path = "{name}/orderCardsByAnswers/{ordering}", produces = "application/json")
     public List<FlashCardResponseDTO> orderDeckCardsByAnswers(@PathVariable(name = "ordering") String ordering)
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @PostMapping(path = "deckCards/{name}/addCard", produces = "application/json", consumes = "application/json")
+    @PostMapping(path = "{name}/addCard", produces = "application/json", consumes = "application/json")
     public ResponseEntity<FlashCardResponseDTO> addCardToDeck(@PathVariable(name = "name") String name,
                                                               @RequestBody @Valid FlashCardRequestDTO cardRequestDTO)
             throws WebExchangeBindException
@@ -139,21 +135,21 @@ public class DeckController
         return null;
     }
 
-    @DeleteMapping(path = "deckCards/{name}/deleteCard/{id}", produces = "application/json")
+    @DeleteMapping(path = "{name}/deleteCard/{id}", produces = "application/json")
     public void deleteCardFromDeck(@PathVariable(name = "name") String name,
                                                          @PathVariable(name = "id") UUID id)
     {
 
     }
 
-    @PutMapping(path = "deckCards/{name}/updateCard/{id}", produces = "application/json")
+    @PutMapping(path = "{name}/updateCard/{id}", produces = "application/json")
     public void updateCardInDeck(@PathVariable(name = "name") String name,
                                    @PathVariable(name = "id") UUID id)
     {
 
     }
 
-    @GetMapping(path = "startLearning/{name}", produces = "application/json")
+    @GetMapping(path = "{name}/startLearning", produces = "application/json")
     public void startLearning()
     {
 

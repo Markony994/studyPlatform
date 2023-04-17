@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import tech.enfint.studyplatform.dto.DeckGroupRequestDTO;
 import tech.enfint.studyplatform.dto.DeckGroupResponseDTO;
-import tech.enfint.studyplatform.dto.DeckRequestDTO;
 import tech.enfint.studyplatform.service.DeckGroupMapper;
 import tech.enfint.studyplatform.service.DeckGroupService;
 
@@ -36,16 +35,18 @@ public class DeckGroupController
         return null;
     }
 
-    @PutMapping(path = "addDeck/{groupName}", consumes = "application/json")
-    public void addDeckToGroup(@RequestBody @Valid DeckRequestDTO deckRequestDTO)
+    @PutMapping(path = "{groupName}/addDeck/{deckName}", consumes = "application/json")
+    public void addDeckToGroup(@PathVariable(name = "groupName") String groupName,
+                               @PathVariable(name = "deckName") String deckName)
     {
 
 
 
     }
 
-    @PutMapping(path = "removeDeck/{groupName}", consumes = "application/json")
-    public void removeDeckFromGroup(@RequestBody @Valid DeckRequestDTO deckRequestDTO)
+    @PutMapping(path = "{groupName}/removeDeck/{deckName}", consumes = "application/json")
+    public void removeDeckFromGroup(@PathVariable(name = "groupName") String groupName,
+                                    @PathVariable(name = "deckName") String deckName)
     {
 
 
