@@ -32,8 +32,12 @@ public class DeckController
         this.deckMapper = deckMapper;
     }
 
-    @GetMapping(produces = "application/json")
-    public List<DeckResponseDTO> getAllDecks()
+    @GetMapping(path = {"", "by{name}", "by{description}", "by{creationDate}"}, produces = "application/json")
+    public List<DeckResponseDTO> getDecks(@RequestParam(name = "name", required = false) String name,
+                                             @RequestParam(name = "description", required = false) String description,
+                                             @RequestParam(name = "creationDate", required = false)
+                                             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime creationDate)
+            throws DeckException
     {
         return null;
     }
@@ -60,17 +64,6 @@ public class DeckController
             throws DeckException, WebExchangeBindException
     {
 
-    }
-
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = {"by{name}", "by{description}", "by{creationDate}"}, produces = "application/json")
-    public List<DeckResponseDTO> filterDecks(@RequestParam(name = "name", required = false) String name,
-                                             @RequestParam(name = "description", required = false) String description,
-                                             @RequestParam(name = "creationDate", required = false)
-                                             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime creationDate)
-            throws DeckException
-    {
-        return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
