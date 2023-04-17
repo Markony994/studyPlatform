@@ -47,7 +47,7 @@ public class DeckController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @DeleteMapping(path = "delete/deck/{name}", produces = "application/json", consumes = "application/json")
+    @DeleteMapping(path = "/{name}", produces = "application/json", consumes = "application/json")
     public void deleteDeck(@PathVariable(name = "name") String name)
             throws DeckException, WebExchangeBindException
     {
