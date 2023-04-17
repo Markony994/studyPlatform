@@ -1,0 +1,39 @@
+Application for learning new foreign words with flash cards:
+Cloud version https://apps.ankiweb.net/	
+
+1) As a user I want to create desc of cards with name and description.
+2) As a user I want to delete desc of cards.
+3) As a user I want to update fields of desck of cards.
+4) As user I want to see list of descs.
+5) As user I want to filter descs by name, description, creation date
+6) As user I want to ordering descs by name, description, creation date
+7) As user I want to see list of cards in desc
+8) As user I want to filter cards by words
+9) As user I want to order cards by face and back
+
+10) As a user I want to add card to desc with words on the face and on the back
+
+11) As a user I want to delete card from desc
+12) As a user  I want to update card
+13) As user I wand to start lerning process with selected desc
+14) As user I want to set learning status for each card "repeat", "hard", "good", "easy" 
+
+
+18) As user I want to create group of descks with name field
+19) As user I want to see list of groups
+
+21) As user I want to add desc to group
+22) As user I want to remove desc from group
+##############################################
+
+
+15) As user I want to see next card after setting learning status -- ????
+
+16) As user I want to learn 10 minutes with each desc
+17) As user I want, that frequency showing cards depends from learning status 
+(repeat - < 10 min, hard - 2 days, good - 3 days, easy - 4 days)
+
+
+
+20) As user I want to see list of descs in contcete group
+
