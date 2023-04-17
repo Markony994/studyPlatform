@@ -23,7 +23,6 @@ import java.util.UUID;
 @RequestMapping("/decks")
 public class DeckController
 {
-
     private final DeckService deckService;
     private final DeckMapper deckMapper;
 
@@ -98,23 +97,19 @@ public class DeckController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "{name}/filterCardsByWords/{words}", produces = "application/json")
+    @GetMapping(path = "{name}/filterCardsByWords{words}{ordering}", produces = "application/json")
     public List<FlashCardResponseDTO> filterDeckCards(@PathVariable(name = "name") String name,
-                                                      @PathVariable(name = "words") List<String> words)
+                                                      @RequestParam(name = "words") List<String> words,
+                                                      @RequestParam(name = "ordering") String ordering)
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "{name}/orderCardsByQuestions/{ordering}", produces = "application/json")
-    public List<FlashCardResponseDTO> orderDeckCardsByQuestions(@PathVariable(name = "ordering") String ordering)
-    {
-        return null;
-    }
-
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "{name}/orderCardsByAnswers/{ordering}", produces = "application/json")
-    public List<FlashCardResponseDTO> orderDeckCardsByAnswers(@PathVariable(name = "ordering") String ordering)
+    @GetMapping(path = "{name}/cards{orderBy}{ordering}", produces = "application/json")
+    public List<FlashCardResponseDTO> orderDeckCards(@PathVariable(name = "name") String name,
+                                                                @RequestParam(name = "orderBy") String orderBy,
+                                                                @RequestParam(name = "ordering") String ordering)
     {
         return null;
     }
