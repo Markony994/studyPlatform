@@ -22,7 +22,7 @@ public class DeckGroupController
         this.deckGroupMapper = deckGroupMapper;
     }
 
-    @GetMapping(path = "getAll", produces = "application/json")
+    @GetMapping(produces = "application/json")
     public List<DeckGroupResponseDTO> getAllGroups()
     {
 
@@ -30,13 +30,13 @@ public class DeckGroupController
 
     }
 
-    @PostMapping(path = "createDeckGroup", consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public DeckGroupResponseDTO createGroup(@RequestBody @Valid DeckGroupRequestDTO deckGroupRequestDTO)
     {
         return null;
     }
 
-    @PutMapping(path = "addDeckToGroup/{groupName}", consumes = "application/json")
+    @PutMapping(path = "addDeck/{groupName}", consumes = "application/json")
     public void addDeckToGroup(@RequestBody @Valid DeckRequestDTO deckRequestDTO)
     {
 
@@ -44,7 +44,7 @@ public class DeckGroupController
 
     }
 
-    @PutMapping(path = "removeDeckFromGroup/{groupName}", consumes = "application/json")
+    @PutMapping(path = "removeDeck/{groupName}", consumes = "application/json")
     public void removeDeckFromGroup(@RequestBody @Valid DeckRequestDTO deckRequestDTO)
     {
 

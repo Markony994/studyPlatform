@@ -15,7 +15,6 @@ import java.util.UUID;
 @RequestMapping("/flashCards")
 public class FlashCardController
 {
-
     private final FlashCardService cardService;
     private final FlashCardMapper cardMapper;
 
@@ -25,21 +24,21 @@ public class FlashCardController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "allCards/filterBy/{words}", produces = "application/json")
+    @GetMapping(path = "filterByWords/{words}", produces = "application/json")
     public List<FlashCardResponseDTO> filterDeckCards( @PathVariable(name = "words") List<String> words)
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "allCards/orderByQuestions/{ordering}", produces = "application/json")
+    @GetMapping(path = "orderByQuestions/{ordering}", produces = "application/json")
     public List<FlashCardResponseDTO> orderDeckCardsByQuestions(@PathVariable(name = "ordering") String ordering)
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "allCards/orderByAnswers/{ordering}", produces = "application/json")
+    @GetMapping(path = "orderByAnswers/{ordering}", produces = "application/json")
     public List<FlashCardResponseDTO> orderDeckCardsByAnswers(@PathVariable(name = "ordering") String ordering)
     {
         return null;
