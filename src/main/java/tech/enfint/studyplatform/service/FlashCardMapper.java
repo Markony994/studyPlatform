@@ -7,6 +7,12 @@ import tech.enfint.studyplatform.persistence.entity.FlashCard;
 public class FlashCardMapper
 {
 
+    private final DeckMapper deckMapper;
+
+    public FlashCardMapper(DeckMapper deckMapper) {
+        this.deckMapper = deckMapper;
+    }
+
     public FlashCard FLashCardRequestDTOToFlashCard(FlashCardRequestDTO flashCardRequestDTO)
     {
 
@@ -20,7 +26,7 @@ public class FlashCardMapper
                 flashCard.getQuestion(),
                 flashCard.getAnswer(),
                 flashCard.getImportance(),
-                flashCard.getDeck());
+                deckMapper.deckToDeckResponseDto(flashCard.getDeck()));
     }
 
 

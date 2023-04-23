@@ -31,11 +31,20 @@ public class DeckController
         this.deckMapper = deckMapper;
     }
 
-    @GetMapping(path = {"", "by{name}", "by{description}", "by{creationDate}"}, produces = "application/json")
+    @GetMapping(produces = "application/json")
     public List<DeckResponseDTO> getDecks(@RequestParam(name = "name", required = false) String name,
                                              @RequestParam(name = "description", required = false) String description,
                                              @RequestParam(name = "creationDate", required = false)
-                                             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime creationDate)
+                                             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime creationDate,
+                                          @RequestParam(name = "orderBy", required = false) String orderBy,
+                                          @RequestParam(name = "orderDirection", required = false) String orderDirection)
+            throws DeckException
+    {
+        return null;
+    }
+
+    @GetMapping(path= "/{deckID}", produces = "application/json")
+    public List<DeckResponseDTO> getDeck(@PathVariable(name = "deckID") UUID deckID)
             throws DeckException
     {
         return null;
@@ -50,15 +59,15 @@ public class DeckController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @DeleteMapping(path = "/{name}", produces = "application/json", consumes = "application/json")
-    public void deleteDeck(@PathVariable(name = "name") String name)
+    @DeleteMapping(path = "/{deckID}", produces = "application/json", consumes = "application/json")
+    public void deleteDeck(@PathVariable(name = "deckID") UUID deckID)
             throws DeckException, WebExchangeBindException
     {
 
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @PutMapping(path = "/{name}", produces = "application/json", consumes = "application/json")
+    @PutMapping(path = "/{deckID}", produces = "application/json", consumes = "application/json")
     public void updateDeck(@RequestBody @Valid DeckRequestDTO deckRequestDTO)
             throws DeckException, WebExchangeBindException
     {
@@ -66,83 +75,45 @@ public class DeckController
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = {"orderByName/{ordering}"}, produces = "application/json")
-    public List<DeckResponseDTO> orderDecksByName(@PathVariable(name = "ordering") String ordering)
-            throws DeckException
+    @GetMapping(path = "{deckID}/cards", produces = "application/json")
+    public List<FlashCardResponseDTO> getDeckCards(@PathVariable(name = "deckID") UUID deckID,
+                                                   @RequestParam(name = "words", required = false) List<String> words,
+                                                   @RequestParam(name = "ordering", required = false) String ordering,
+                                                   @RequestParam(name = "orderBy", required = false) String orderBy,
+                                                   @RequestParam(name = "orderDirection", required = false) String orderDirection)
     {
         return null;
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = {"orderByDescription/{ordering}"}, produces = "application/json")
-    public List<DeckResponseDTO> orderDecksByDescription(@PathVariable(name = "ordering") String ordering)
-            throws DeckException
-    {
-        return null;
-    }
-
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = {"orderByCreationDate/{ordering}"}, produces = "application/json")
-    public List<DeckResponseDTO> orderDecksByCreationDate(@PathVariable(name = "ordering") String ordering)
-            throws DeckException
-    {
-        return null;
-    }
-
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "{name}/", produces = "application/json")
-    public List<FlashCardResponseDTO> getDeckCards(@PathVariable(name = "name") String name)
-    {
-        return null;
-    }
-
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "{name}/filterCardsByWords{words}{ordering}", produces = "application/json")
-    public List<FlashCardResponseDTO> filterDeckCards(@PathVariable(name = "name") String name,
-                                                      @RequestParam(name = "words") List<String> words,
-                                                      @RequestParam(name = "ordering") String ordering)
-    {
-        return null;
-    }
-
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "{name}/cards{orderBy}{ordering}", produces = "application/json")
-    public List<FlashCardResponseDTO> orderDeckCards(@PathVariable(name = "name") String name,
-                                                                @RequestParam(name = "orderBy") String orderBy,
-                                                                @RequestParam(name = "ordering") String ordering)
-    {
-        return null;
-    }
-
-    @Logging(logTypes = {FieldType.ERROR})
-    @PostMapping(path = "{name}/addCard", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<FlashCardResponseDTO> addCardToDeck(@PathVariable(name = "name") String name,
+    @PostMapping(path = "{deckID}/cards", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<FlashCardResponseDTO> addCardToDeck(@PathVariable(name = "deckID") UUID deckID,
                                                               @RequestBody @Valid FlashCardRequestDTO cardRequestDTO)
             throws WebExchangeBindException
     {
         return null;
     }
 
-    @DeleteMapping(path = "{name}/deleteCard/{id}", produces = "application/json")
-    public void deleteCardFromDeck(@PathVariable(name = "name") String name,
-                                                         @PathVariable(name = "id") UUID id)
+    @DeleteMapping(path = "{deckID}/cards/{cardID}", produces = "application/json")
+    public void deleteCardFromDeck(@PathVariable(name = "deckID") UUID deckID,
+                                                         @PathVariable(name = "cardID") UUID cardID)
     {
 
     }
 
-    @PutMapping(path = "{name}/updateCard/{id}", produces = "application/json")
-    public void updateCardInDeck(@PathVariable(name = "name") String name,
-                                   @PathVariable(name = "id") UUID id)
+    @PutMapping(path = "{deckID}/updateCard/{cardID}", produces = "application/json")
+    public void updateCardInDeck(@PathVariable(name = "deckID") UUID deckID,
+                                   @PathVariable(name = "cardID") UUID cardID)
     {
 
     }
 
-    @GetMapping(path = "{name}/startLearning", produces = "application/json")
+    @GetMapping(path = "{deckID}/startLearning", produces = "application/json")
     public void startLearning()
     {
 
     }
 
-
+    
 
 }//public class DeckController

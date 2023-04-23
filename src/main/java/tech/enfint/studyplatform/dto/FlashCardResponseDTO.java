@@ -1,6 +1,5 @@
 package tech.enfint.studyplatform.dto;
 
-import tech.enfint.studyplatform.persistence.entity.Deck;
 import tech.enfint.studyplatform.persistence.entity.LeitnerSystem;
 
 public class FlashCardResponseDTO
@@ -8,9 +7,9 @@ public class FlashCardResponseDTO
     private String question;
     private String answer;
     private LeitnerSystem importance;
-    private Deck deck;
+    private DeckResponseDTO deck;
 
-    public FlashCardResponseDTO(String question, String answer, LeitnerSystem importance, Deck deck) {
+    public FlashCardResponseDTO(String question, String answer, LeitnerSystem importance, DeckResponseDTO deck) {
         this.question = question;
         this.answer = answer;
         this.importance = importance;
@@ -29,7 +28,7 @@ public class FlashCardResponseDTO
         return importance;
     }
 
-    public Deck getDeck() {
+    public DeckResponseDTO getDeck() {
         return deck;
     }
 }
