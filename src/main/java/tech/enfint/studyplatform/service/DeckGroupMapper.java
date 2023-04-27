@@ -1,11 +1,13 @@
 package tech.enfint.studyplatform.service;
 
+import org.springframework.stereotype.Component;
 import tech.enfint.studyplatform.dto.DeckGroupRequestDTO;
 import tech.enfint.studyplatform.dto.DeckGroupResponseDTO;
 import tech.enfint.studyplatform.persistence.entity.DeckGroup;
 
 import java.util.stream.Collectors;
 
+@Component
 public class DeckGroupMapper
 {
     private final DeckMapper deckMapper;

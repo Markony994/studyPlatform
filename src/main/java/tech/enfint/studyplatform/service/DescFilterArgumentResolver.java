@@ -7,13 +7,15 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import tech.enfint.studyplatform.dto.DeskFilterDto;
 
-public class HeaderVersionArgumentResolver
+public class DescFilterArgumentResolver
         implements HandlerMethodArgumentResolver {
+
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-        return methodParameter.getParameterAnnotation(Version.class) != null;
+       return methodParameter.getParameterType().equals(DeskFilterDto.class);
     }
 
     @Override
@@ -25,7 +27,10 @@ public class HeaderVersionArgumentResolver
 
         HttpServletRequest request
                 = (HttpServletRequest) nativeWebRequest.getNativeRequest();
-
-        return request.getHeader("Version");
+        //TODO fill other fields in DeskFilterDto by request parameters
+        String name = request.getParameter("name");
+        return DeskFilterDto.builder()
+                .name(name)
+                .build();
     }
 }

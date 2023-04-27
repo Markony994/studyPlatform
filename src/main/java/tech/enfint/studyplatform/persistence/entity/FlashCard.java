@@ -2,7 +2,7 @@ package tech.enfint.studyplatform.persistence.entity;
 
 import jakarta.persistence.*;
 
-@Entity
+//@Entity
 public class FlashCard
 {
     private String question;

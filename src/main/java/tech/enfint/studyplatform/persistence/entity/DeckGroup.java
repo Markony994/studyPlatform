@@ -6,6 +6,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.Set;
 
+//TODO remove
 public class DeckGroup
 {
     private String name;

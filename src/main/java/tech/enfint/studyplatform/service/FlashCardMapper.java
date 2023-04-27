@@ -1,34 +1,26 @@
 package tech.enfint.studyplatform.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import tech.enfint.studyplatform.dto.FlashCardRequestDTO;
 import tech.enfint.studyplatform.dto.FlashCardResponseDTO;
 import tech.enfint.studyplatform.persistence.entity.FlashCard;
 
-public class FlashCardMapper
-{
+@Component
+@RequiredArgsConstructor
+public class FlashCardMapper {
 
     private final DeckMapper deckMapper;
 
-    public FlashCardMapper(DeckMapper deckMapper) {
-        this.deckMapper = deckMapper;
+    public FlashCardResponseDTO flashCardToFlashCardResponseDTO(FlashCard flashCard) {
+        return FlashCardResponseDTO.builder()
+                .question(flashCard.getQuestion())
+                .answer(flashCard.getAnswer())
+                .importance(flashCard.getImportance())
+                .deck(deckMapper.deckToDeckResponseDto(flashCard.getDeck()))
+                .build();
+
     }
-
-    public FlashCard FLashCardRequestDTOToFlashCard(FlashCardRequestDTO flashCardRequestDTO)
-    {
-
-        return new FlashCard(flashCardRequestDTO.getQuestion(), flashCardRequestDTO.getQuestion());
-
-    }
-
-    public FlashCardResponseDTO flashCardToFlashCardResponseDTO(FlashCard flashCard)
-    {
-        return new FlashCardResponseDTO(
-                flashCard.getQuestion(),
-                flashCard.getAnswer(),
-                flashCard.getImportance(),
-                deckMapper.deckToDeckResponseDto(flashCard.getDeck()));
-    }
-
 
 
 }
