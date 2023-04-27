@@ -6,13 +6,13 @@ public class FlashCardResponseDTO
 {
     private String question;
     private String answer;
-    private LeitnerSystem importance;
+    private LeitnerSystem status;
     private DeckResponseDTO deck;
 
-    public FlashCardResponseDTO(String question, String answer, LeitnerSystem importance, DeckResponseDTO deck) {
+    public FlashCardResponseDTO(String question, String answer, LeitnerSystem status, DeckResponseDTO deck) {
         this.question = question;
         this.answer = answer;
-        this.importance = importance;
+        this.status = status;
         this.deck = deck;
     }
 
@@ -24,8 +24,8 @@ public class FlashCardResponseDTO
         return answer;
     }
 
-    public LeitnerSystem getImportance() {
-        return importance;
+    public LeitnerSystem getStatus() {
+        return status;
     }
 
     public DeckResponseDTO getDeck() {

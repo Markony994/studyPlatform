@@ -26,6 +26,8 @@ public class HeaderVersionArgumentResolver
         HttpServletRequest request
                 = (HttpServletRequest) nativeWebRequest.getNativeRequest();
 
+
+
         return request.getHeader("Version");
     }
 }

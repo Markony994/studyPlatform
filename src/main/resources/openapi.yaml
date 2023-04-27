@@ -14,19 +14,8 @@ servers:
 tags:
   - name: Deck
     description: Collection of cards
-    externalDocs:
-      description: na
-      url: na
-  - name: DeckGroup
-    description: Collection of decks
-    externalDocs:
-      description: na
-      url: na
   - name: FlashCard
     description: Card for memorising, one side is question, on other is its answer
-    externalDocs:
-      description: na
-      url: na
 paths:
   /decks/:
     get:
@@ -68,7 +57,7 @@ paths:
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   $ref: '#/components/schemas/DeckResponseDTO'
         '400':
           description: Invalid parameter/s
@@ -89,149 +78,149 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
     post:
-        tags:
-          - deck
-        summary: creating a deck
-        description: creates a deck based on supplied DeckRequestDTO object
-        
-        requestBody:
-          required: true
+      tags:
+        - deck
+      summary: creating a deck
+      description: creates a deck based on supplied DeckRequestDTO object
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeckRequestDTO'
+      responses:
+        '200':
+          description: Successful operation
           content:
             application/json:
-              schema: 
-                $ref: '#/components/schemas/DeckRequestDTO'
-        responses:
-          '200':
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DeckResponseDTO'
-          '400':
-            description: Somenthing went wrong, try again later
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '404':
-            description: No deck found with that id
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '405':
-            description: Validation exception
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-                  
+              schema:
+                $ref: '#/components/schemas/DeckResponseDTO'
+        '400':
+          description: Somenthing went wrong, try again later
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No deck found with that id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
   /decks/{deckID}:
-  
-      get:
-        tags:
-          - deck
-        summary: getting one deck
-        description: returns deck depending on recieved deckID
-        parameters:
-          - in: path
-            name: deckID
-            required: true
-            schema:
-              type: string
-              format: uuid
-        responses:
-          '200':
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DeckResponseDTO'
-          '400':
-            description: Invalid deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '404':
-            description: No deck found with that deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '405':
-            description: Validation exception
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-                  
-      delete:
-        tags:
-          - deck
-        summary: deleting one deck
-        description: deletes deck depending on recieved deckID
-        parameters:
-          - in: path
-            name: deckID
-            required: true
-            schema:
-              type: string
-              format: uuid
-        responses:
-          '200':
-            description: Successful operation
-          '400':
-            description: Invalid deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '404':
-            description: No deck found with that deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '405':
-            description: Validation exception
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-      put:
-        tags:
-          - deck
-        summary: updating one deck
-        description: updates deck depending on recieved deckID
-        parameters:
-          - in: path
-            name: deckID
-            required: true
-            schema:
-              type: string
-              format: uuid
-        responses:
-          '200':
-            description: Successful operation
-          '400':
-            description: Invalid deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '404':
-            description: No deck found with that deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '405':
-            description: Validation exception
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
+
+    get:
+      tags:
+        - deck
+      summary: getting one deck
+      description: returns deck depending on recieved deckID
+      parameters:
+        - in: path
+          name: deckID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeckResponseDTO'
+        '400':
+          description: Invalid deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No deck found with that deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
+    delete:
+      tags:
+        - deck
+      summary: deleting one deck
+      description: deletes deck depending on recieved deckID
+      parameters:
+        - in: path
+          name: deckID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No deck found with that deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+    put:
+      tags:
+        - deck
+      summary: updating one deck
+      description: updates deck depending on recieved deckID
+      parameters:
+        - in: path
+          name: deckID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No deck found with that deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
 
   /decks/{deckID}/cards:
     get:
@@ -251,7 +240,7 @@ paths:
           required: false
           schema:
             type: array
-            items: 
+            items:
               type: string
         - in: query
           name: ordering
@@ -297,49 +286,49 @@ paths:
                 $ref: '#/components/schemas/ErrorDTO'
 
     post:
-        tags:
-          - deck
-        summary: creating a card in deck
-        description: creates a card in deck based on supplied FlashCardRequestDTO object
-        parameters:
+      tags:
+        - deck
+      summary: creating a card in deck
+      description: creates a card in deck based on supplied FlashCardRequestDTO object
+      parameters:
         - in: path
           name: deckID
           required: true
           schema:
             type: string
             format: uuid
-        requestBody:
-          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlashCardRequestDTO'
+      responses:
+        '200':
+          description: Successful operation
           content:
             application/json:
-              schema: 
-                $ref: '#/components/schemas/FlashCardRequestDTO'
-        responses:
-          '200':
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/FlashCardResponseDTO'
-          '400':
-            description: Somenthing went wrong, try again later
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '404':
-            description: No deck found with that id
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '405':
-            description: Validation exception
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-    
+              schema:
+                $ref: '#/components/schemas/FlashCardResponseDTO'
+        '400':
+          description: Somenthing went wrong, try again later
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No deck found with that id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
   /decks/{deckID}/cards/{cardID}:
     delete:
       tags:
@@ -360,26 +349,26 @@ paths:
             type: string
             format: uuid
       responses:
-          '200':
-            description: Successful operation
-          '400':
-            description: Invalid deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '404':
-            description: No deck found with that deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '405':
-            description: Validation exception
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No deck found with that deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
     put:
       tags:
         - deck
@@ -399,27 +388,27 @@ paths:
             type: string
             format: uuid
       responses:
-          '200':
-            description: Successful operation
-          '400':
-            description: Invalid deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '404':
-            description: No deck found with that deckID
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-          '405':
-            description: Validation exception
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorDTO'
-                  
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: No deck found with that deckID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
   /decks/{deckID}/startLearning:
     get:
       tags:
@@ -455,14 +444,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-      
-  
+
+
 components:
   schemas:
     DeckResponseDTO:
       type: object
       description: object for returning decks
-      required: 
+      required:
         - id
         - creationdate
       properties:
@@ -486,7 +475,7 @@ components:
     FlashCardRequestDTO:
       type: object
       description: object for creating cards
-      required: 
+      required:
         - question
         - answer
       properties:
@@ -497,7 +486,7 @@ components:
     FlashCardResponseDTO:
       type: object
       description: object for returning cards
-      required: 
+      required:
         - question
         - answer
         - importance
@@ -509,7 +498,7 @@ components:
           type: string
         importance:
           type: string
-          enum: [ONE, TWO, THREE, FOUR, FIVE]
+          enum: [REPEAT, HARD, GOOD, EASY]
         deck:
           $ref: '#/components/schemas/DeckResponseDTO'
     ErrorDTO:
@@ -523,8 +512,3 @@ components:
           type: string
         code:
           type: string
-          
-        
-        
-        
-        

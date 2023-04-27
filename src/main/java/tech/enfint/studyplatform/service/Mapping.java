@@ -1,4 +1,4 @@
-package tech.enfint.studyplatform.dto;
+package tech.enfint.studyplatform.service;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

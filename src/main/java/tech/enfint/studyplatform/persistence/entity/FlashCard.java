@@ -26,7 +26,7 @@ public class FlashCard
     {
         this.question = question;
         this.answer = answer;
-        this.importance = LeitnerSystem.ONE;
+        this.importance = LeitnerSystem.REPEAT;
     }
 
     public String getQuestion() {

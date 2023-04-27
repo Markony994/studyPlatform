@@ -74,6 +74,14 @@ public class DeckController
 
     }
 
+
+    @Logging(logTypes = {FieldType.ERROR})
+    @GetMapping(path = "{deckID}/cards/{cardID}", produces = "application/json", consumes = "application/json")
+    public void updateDeckCard(@RequestBody @Valid FlashCardRequestDTO cardRequestDTO)
+    {
+
+    }
+
     @Logging(logTypes = {FieldType.ERROR})
     @GetMapping(path = "{deckID}/cards", produces = "application/json")
     public List<FlashCardResponseDTO> getDeckCards(@PathVariable(name = "deckID") UUID deckID,

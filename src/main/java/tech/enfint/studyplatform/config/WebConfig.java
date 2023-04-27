@@ -8,7 +8,7 @@ import tech.enfint.studyplatform.service.HeaderVersionArgumentResolver;
 import java.util.List;
 
 @Configuration
-public class WebApplicationInitializer implements WebMvcConfigurer
+public class WebConfig implements WebMvcConfigurer
 {
 
     @Override
