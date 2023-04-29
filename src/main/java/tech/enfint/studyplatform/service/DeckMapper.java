@@ -1,38 +1,30 @@
 package tech.enfint.studyplatform.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import tech.enfint.studyplatform.dto.DeckRequestDTO;
 import tech.enfint.studyplatform.dto.DeckResponseDTO;
 import tech.enfint.studyplatform.persistence.entity.Deck;
 
-import java.util.stream.Collectors;
+@Component
+@RequiredArgsConstructor
+public class DeckMapper {
 
-public class DeckMapper
-{
-    private final FlashCardMapper flashCardMapper;
-
-    public DeckMapper(FlashCardMapper flashCardMapper) {
-        this.flashCardMapper = flashCardMapper;
-    }
-
-    public Deck DeckRequestDtoToDeck(DeckRequestDTO deckRequestDTO)
-    {
+    public Deck DeckRequestDtoToDeck(DeckRequestDTO deckRequestDTO) {
         return new Deck(
                 deckRequestDTO.getName(),
                 deckRequestDTO.getDescription()
         );
     }
 
-    public DeckResponseDTO deckToDeckResponseDto(Deck deck)
-    {
-        return new DeckResponseDTO(
-                deck.getName(),
-                deck.getDescription(),
-                deck.getCreationDate(),
-                deck.getCards().stream()
-                        .map(flashCardMapper::flashCardToFlashCardResponseDTO)
-                        .collect(Collectors.toSet()),
-                deck.getGroup()
-                );
+    public DeckResponseDTO deckToDeckResponseDto(Deck deck) {
+
+        return DeckResponseDTO.builder()
+                .id(deck.getId())
+                .name(deck.getName())
+                .description(deck.getDescription())
+                .creationDate(deck.getCreationDate())
+                .build();
     }
 
 }

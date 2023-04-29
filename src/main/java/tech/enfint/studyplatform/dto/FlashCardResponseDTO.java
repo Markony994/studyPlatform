@@ -1,34 +1,17 @@
 package tech.enfint.studyplatform.dto;
 
+import lombok.Builder;
+import lombok.Value;
 import tech.enfint.studyplatform.persistence.entity.LeitnerSystem;
 
+@Value
+@Builder
 public class FlashCardResponseDTO
 {
-    private String question;
-    private String answer;
-    private LeitnerSystem status;
-    private DeckResponseDTO deck;
+    String question;
+    String answer;
+    @Builder.Default
+    LeitnerSystem status = LeitnerSystem.REPEAT;
+    DeckResponseDTO deck;
 
-    public FlashCardResponseDTO(String question, String answer, LeitnerSystem status, DeckResponseDTO deck) {
-        this.question = question;
-        this.answer = answer;
-        this.status = status;
-        this.deck = deck;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public LeitnerSystem getStatus() {
-        return status;
-    }
-
-    public DeckResponseDTO getDeck() {
-        return deck;
-    }
 }

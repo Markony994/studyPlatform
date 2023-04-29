@@ -1,4 +1,11 @@
 package tech.enfint.studyplatform.service;
 
-public class FlashCardService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class FlashCardService
+{
+
+
+
 }

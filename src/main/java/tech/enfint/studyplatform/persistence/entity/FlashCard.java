@@ -2,12 +2,11 @@ package tech.enfint.studyplatform.persistence.entity;
 
 import jakarta.persistence.*;
 
-@Entity
 public class FlashCard
 {
     private String question;
     private String answer;
-    private LeitnerSystem importance;
+    private LeitnerSystem status;
     @OneToOne(fetch = FetchType.EAGER)
     private Deck deck;
 
@@ -15,18 +14,18 @@ public class FlashCard
     {
     }
 
-    public FlashCard(String question, String answer, LeitnerSystem importance)
+    public FlashCard(String question, String answer, LeitnerSystem status)
     {
         this.question = question;
         this.answer = answer;
-        this.importance = importance;
+        this.status = status;
     }
 
     public FlashCard(String question, String answer)
     {
         this.question = question;
         this.answer = answer;
-        this.importance = LeitnerSystem.REPEAT;
+        this.status = LeitnerSystem.REPEAT;
     }
 
     public String getQuestion() {
@@ -37,8 +36,8 @@ public class FlashCard
         return answer;
     }
 
-    public LeitnerSystem getImportance() {
-        return importance;
+    public LeitnerSystem getStatus() {
+        return status;
     }
 
     public Deck getDeck() {
@@ -50,7 +49,8 @@ public class FlashCard
         return "FlashCard{" +
                 "question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
-                ", importance=" + importance +
+                ", status=" + status +
+                ", deck=" + deck +
                 '}';
     }
 }

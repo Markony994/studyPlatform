@@ -1,62 +1,63 @@
 package tech.enfint.studyplatform.inbound.controller;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.WebExchangeBindException;
+import tech.enfint.studyplatform.dto.CardFilterDTO;
+import tech.enfint.studyplatform.dto.FlashCardRequestDTO;
 import tech.enfint.studyplatform.dto.FlashCardResponseDTO;
 import tech.enfint.studyplatform.logging.FieldType;
 import tech.enfint.studyplatform.logging.Logging;
-import tech.enfint.studyplatform.persistence.entity.LeitnerSystem;
 import tech.enfint.studyplatform.service.FlashCardMapper;
 import tech.enfint.studyplatform.service.FlashCardService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/flashCards")
+@RequiredArgsConstructor
+@Slf4j
 public class FlashCardController
 {
     private final FlashCardService cardService;
     private final FlashCardMapper cardMapper;
 
-    public FlashCardController(FlashCardService cardService, FlashCardMapper cardMapper) {
-        this.cardService = cardService;
-        this.cardMapper = cardMapper;
+    //FIXME when orderDirection is not supplied it sets up to null instead of OrderDirection.DESC
+    @Logging(logTypes = {FieldType.ERROR})
+    @GetMapping(path = "{deckID}/cards", produces = "application/json")
+    public List<FlashCardResponseDTO> getCards(CardFilterDTO cardFilterDTO) {
+        log.info("CardFilterDTO {} ", cardFilterDTO);
+        return new ArrayList<>();
     }
 
     @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "filterByWords/{words}", produces = "application/json")
-    public List<FlashCardResponseDTO> filterDeckCards( @PathVariable(name = "words") List<String> words)
-    {
+    @PostMapping(path = "{deckID}/cards", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<FlashCardResponseDTO> addCardToDeck(@PathVariable(name = "deckID") UUID deckID,
+                                                              @RequestBody @Valid FlashCardRequestDTO
+                                                                      cardRequestDTO)
+            throws WebExchangeBindException {
+        log.info("deckID {} ", deckID);
+        log.info("cardRequestDTO {} ", cardRequestDTO);
         return null;
     }
 
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "orderByQuestions/{ordering}", produces = "application/json")
-    public List<FlashCardResponseDTO> orderDeckCardsByQuestions(@PathVariable(name = "ordering") String ordering)
-    {
-        return null;
+    @DeleteMapping(path = "{deckID}/cards/{cardID}", produces = "application/json")
+    public void deleteCardFromDeck(@PathVariable(name = "deckID") UUID deckID,
+                                   @PathVariable(name = "cardID") UUID cardID) {
+        log.info("deckID {} ", deckID);
+        log.info("cardID {} ", cardID);
     }
 
-    @Logging(logTypes = {FieldType.ERROR})
-    @GetMapping(path = "orderByAnswers/{ordering}", produces = "application/json")
-    public List<FlashCardResponseDTO> orderDeckCardsByAnswers(@PathVariable(name = "ordering") String ordering)
-    {
-        return null;
+    @PutMapping(path = "{deckID}/cards/{cardID}", produces = "application/json")
+    public void updateCardInDeck(@PathVariable(name = "deckID") UUID deckID,
+                                 @PathVariable(name = "cardID") UUID cardID) {
+        log.info("deckID {} ", deckID);
+        log.info("cardID {} ", cardID);
     }
-
-    @PutMapping(path = "update/{id}", produces = "application/json")
-    public void updateCard(@PathVariable(name = "id") UUID id)
-    {
-
-    }
-
-    @PutMapping(path = "update/{id}/importance/{importance}", produces = "application/json")
-    public void updateImportance(@PathVariable(name = "id") UUID id,
-                                 @PathVariable(name = "importance") LeitnerSystem importance)
-    {
-
-    }
-
-
 
 }

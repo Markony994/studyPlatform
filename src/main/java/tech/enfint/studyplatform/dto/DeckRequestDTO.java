@@ -19,4 +19,12 @@ public class DeckRequestDTO
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "DeckRequestDTO{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

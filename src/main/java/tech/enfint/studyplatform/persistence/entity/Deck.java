@@ -5,17 +5,16 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
-@Entity
 public class Deck
 {
+    private UUID id;
     private String name;
     private String description;
     private LocalDateTime creationDate;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<FlashCard> cards;
-    @OneToOne
-    private DeckGroup group;
 
     public Deck()
     {
@@ -29,11 +28,16 @@ public class Deck
         this.cards = new HashSet<>();
     }
 
-    public Deck(String name, String description, Set<FlashCard> cards) {
+    public Deck(UUID id, String name, String description, LocalDateTime creationDate) {
+        this.id = id;
         this.name = name;
         this.description = description;
-        this.creationDate = LocalDateTime.now();
-        this.cards = cards;
+        this.creationDate = creationDate;
+        this.cards = new HashSet<>();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getName() {
@@ -52,14 +56,11 @@ public class Deck
         return cards;
     }
 
-    public DeckGroup getGroup() {
-        return group;
-    }
-
     @Override
     public String toString() {
         return "Deck{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate=" + creationDate +
                 ", cards=" + cards +
