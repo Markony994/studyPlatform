@@ -27,10 +27,11 @@ public class FlashCardController
     private final FlashCardService cardService;
     private final FlashCardMapper cardMapper;
 
-    //FIXME when orderDirection is not supplied it sets up to null instead of OrderDirection.DESC
     @Logging(logTypes = {FieldType.ERROR})
     @GetMapping(path = "{deckID}/cards", produces = "application/json")
-    public List<FlashCardResponseDTO> getCards(CardFilterDTO cardFilterDTO) {
+    public List<FlashCardResponseDTO> getCards(@PathVariable(name = "deckID") UUID deckID,
+                                               CardFilterDTO cardFilterDTO) {
+        log.info("deckID {} ", deckID);
         log.info("CardFilterDTO {} ", cardFilterDTO);
         return new ArrayList<>();
     }

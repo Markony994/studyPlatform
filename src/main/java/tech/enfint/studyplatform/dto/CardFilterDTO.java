@@ -11,7 +11,6 @@ import java.util.UUID;
 @Builder
 public class CardFilterDTO
 {
-    UUID deckID;
     List<String> words;
     String orderBy;
     @Builder.Default

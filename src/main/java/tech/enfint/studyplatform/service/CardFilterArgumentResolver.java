@@ -12,7 +12,6 @@ import tech.enfint.studyplatform.persistence.entity.OrderDirection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public class CardFilterArgumentResolver
         implements HandlerMethodArgumentResolver {
@@ -32,7 +31,6 @@ public class CardFilterArgumentResolver
         HttpServletRequest request
                 = (HttpServletRequest) nativeWebRequest.getNativeRequest();
 
-        UUID deckID = UUID.fromString(request.getParameter("deckID"));
         List<String> words = Collections.singletonList(request.getParameter("words"));
         String orderBy = request.getParameter("orderBy");
 
@@ -43,7 +41,6 @@ public class CardFilterArgumentResolver
                 .ifPresent(builder::orderDirection);
 
         return builder
-                .deckID(deckID)
                 .words(words)
                 .orderBy(orderBy)
                 .build();
