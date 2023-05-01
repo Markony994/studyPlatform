@@ -7,8 +7,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Entity
 public class Deck
 {
+    @Id
+    @GeneratedValue
+    @Column(nullable = false)
     private UUID id;
     private String name;
     private String description;
@@ -22,6 +26,7 @@ public class Deck
     }
 
     public Deck(String name, String description) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.creationDate = LocalDateTime.now();
