@@ -6,20 +6,37 @@
                    http://www.liquibase.org/xml/ns/dbchangelog-ext
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <!--Added the entity Car-->
+    <!--Added the entity deck and flashcard-->
     <changeSet id="init-0" author="markony">
-        <createTable tableName="car">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+        <createTable tableName="Deck">
+            <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="make" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
             </column>
-            <column name="brand" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false" />
             </column>
-            <column name="price" type="double">
-                <constraints nullable="true" />
+            <column name="creationDate" type="timestamp ">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createTable tableName="FlashCard">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="question" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="answer" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="status" type="varchar(10) ">
+                <constraints nullable="false" />
+            </column>
+            <column name="deckID" type="uuid ">
+                <constraints nullable="false" referencedTableName="Deck" foreignKeyName="id"/>
             </column>
         </createTable>
     </changeSet>
