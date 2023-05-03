@@ -1,6 +1,7 @@
 package tech.enfint.studyplatform.persistence.entity;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -11,13 +12,16 @@ import java.util.UUID;
 public class Deck
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private UUID id;
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false)
     private LocalDateTime creationDate;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<FlashCard> cards;
 
     public Deck()
@@ -59,6 +63,19 @@ public class Deck
 
     public Set<FlashCard> getCards() {
         return cards;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Deck that)) {
+            return false;
+        }
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(name, that.name);
+        return eb.isEquals();
     }
 
     @Override

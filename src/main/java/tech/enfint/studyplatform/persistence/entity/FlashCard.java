@@ -1,6 +1,7 @@
 package tech.enfint.studyplatform.persistence.entity;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import java.util.UUID;
 
@@ -8,13 +9,16 @@ import java.util.UUID;
 public class FlashCard
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private UUID id;
+    @Column(nullable = false, unique = true)
     private String question;
+    @Column(nullable = false)
     private String answer;
+    @Column(nullable = false)
     private LeitnerSystem status;
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     private Deck deck;
 
     public FlashCard()
@@ -58,6 +62,21 @@ public class FlashCard
 
     public Deck getDeck() {
         return deck;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof FlashCard that)) {
+            return false;
+        }
+
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(question, that.question);
+        eb.append(deck, that.deck);
+        return eb.isEquals();
     }
 
     @Override
