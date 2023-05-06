@@ -21,6 +21,7 @@ public class FlashCardMapper {
 
     public FlashCardResponseDTO flashCardToFlashCardResponseDTO(FlashCard flashCard) {
         return FlashCardResponseDTO.builder()
+                .id(flashCard.getId())
                 .question(flashCard.getQuestion())
                 .answer(flashCard.getAnswer())
                 .status(flashCard.getStatus())

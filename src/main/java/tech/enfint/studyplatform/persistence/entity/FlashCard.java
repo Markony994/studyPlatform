@@ -6,17 +6,18 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import java.util.UUID;
 
 @Entity
+@Table(name="flashCard", schema = "public")
 public class FlashCard
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private UUID id;
-    @Column(nullable = false, unique = true)
+    @Column(name = "question", nullable = false, unique = true)
     private String question;
-    @Column(nullable = false)
+    @Column(name = "answer", nullable = false)
     private String answer;
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private LeitnerSystem status;
     @OneToOne(fetch = FetchType.LAZY)
     private Deck deck;
@@ -48,6 +49,10 @@ public class FlashCard
         this.status = LeitnerSystem.REPEAT;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public String getQuestion() {
         return question;
     }
@@ -62,6 +67,22 @@ public class FlashCard
 
     public Deck getDeck() {
         return deck;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setStatus(LeitnerSystem status) {
+        this.status = status;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 
     @Override

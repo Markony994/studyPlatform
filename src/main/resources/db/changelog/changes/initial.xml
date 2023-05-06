@@ -8,7 +8,7 @@
 
     <!--Added the entity deck and flashcard-->
     <changeSet id="init-0" author="markony">
-        <createTable tableName="Deck">
+        <createTable tableName="deck">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -22,7 +22,7 @@
                 <constraints nullable="false" />
             </column>
         </createTable>
-        <createTable tableName="FlashCard">
+        <createTable tableName="flashCard">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false" />
             </column>

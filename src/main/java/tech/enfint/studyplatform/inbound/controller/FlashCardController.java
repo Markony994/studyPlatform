@@ -14,7 +14,7 @@ import tech.enfint.studyplatform.logging.Logging;
 import tech.enfint.studyplatform.service.FlashCardMapper;
 import tech.enfint.studyplatform.service.FlashCardService;
 
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,9 +31,8 @@ public class FlashCardController
     @GetMapping(path = "{deckID}/cards", produces = "application/json")
     public List<FlashCardResponseDTO> getCards(@PathVariable(name = "deckID") UUID deckID,
                                                CardFilterDTO cardFilterDTO) {
-        log.info("deckID {} ", deckID);
-        log.info("CardFilterDTO {} ", cardFilterDTO);
-        return new ArrayList<>();
+
+        return cardService.getCardsByDeckID(deckID);
     }
 
     @Logging(logTypes = {FieldType.ERROR})
@@ -42,23 +41,27 @@ public class FlashCardController
                                                               @RequestBody @Valid FlashCardRequestDTO
                                                                       cardRequestDTO)
             throws WebExchangeBindException {
-        log.info("deckID {} ", deckID);
-        log.info("cardRequestDTO {} ", cardRequestDTO);
-        return null;
+
+        FlashCardResponseDTO body = cardService.createCard(cardRequestDTO);
+
+        return ResponseEntity.created(URI.create(deckID + "/cards/" + body.getId())).body(body);
     }
 
     @DeleteMapping(path = "{deckID}/cards/{cardID}", produces = "application/json")
     public void deleteCardFromDeck(@PathVariable(name = "deckID") UUID deckID,
                                    @PathVariable(name = "cardID") UUID cardID) {
-        log.info("deckID {} ", deckID);
-        log.info("cardID {} ", cardID);
+
+        cardService.deleteCardByID(cardID);
     }
 
     @PutMapping(path = "{deckID}/cards/{cardID}", produces = "application/json")
     public void updateCardInDeck(@PathVariable(name = "deckID") UUID deckID,
-                                 @PathVariable(name = "cardID") UUID cardID) {
-        log.info("deckID {} ", deckID);
-        log.info("cardID {} ", cardID);
+                                 @PathVariable(name = "cardID") UUID cardID,
+                                 @RequestBody @Valid FlashCardRequestDTO
+                                             cardRequestDTO) {
+
+        cardService.updateCard(cardRequestDTO, cardID);
+
     }
 
 }

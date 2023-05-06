@@ -4,25 +4,24 @@ import jakarta.persistence.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table(name="deck", schema = "public")
 public class Deck
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private UUID id;
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @Column(nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
-    @Column(nullable = false)
+    @Column(name = "creationDate", nullable = false)
     private LocalDateTime creationDate;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<FlashCard> cards;
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<FlashCard> cards;
 
     public Deck()
     {
@@ -34,7 +33,7 @@ public class Deck
         this.name = name;
         this.description = description;
         this.creationDate = LocalDateTime.now();
-        this.cards = new HashSet<>();
+//        this.cards = new HashSet<>();
     }
 
     public Deck(UUID id, String name, String description, LocalDateTime creationDate) {
@@ -42,7 +41,7 @@ public class Deck
         this.name = name;
         this.description = description;
         this.creationDate = creationDate;
-        this.cards = new HashSet<>();
+//        this.cards = new HashSet<>();
     }
 
     public UUID getId() {
@@ -61,8 +60,20 @@ public class Deck
         return creationDate;
     }
 
-    public Set<FlashCard> getCards() {
-        return cards;
+//    public Set<FlashCard> getCards() {
+//        return cards;
+//    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override
@@ -85,7 +96,7 @@ public class Deck
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate=" + creationDate +
-                ", cards=" + cards +
+//                ", cards=" + cards +
                 '}';
     }
 }
