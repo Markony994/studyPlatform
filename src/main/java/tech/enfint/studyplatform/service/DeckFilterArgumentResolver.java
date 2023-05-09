@@ -7,6 +7,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import tech.enfint.studyplatform.dto.DeckFilterDto;
+import tech.enfint.studyplatform.persistence.entity.OrderDecksBy;
 import tech.enfint.studyplatform.persistence.entity.OrderDirection;
 
 import java.time.LocalDateTime;
@@ -32,7 +33,6 @@ public class DeckFilterArgumentResolver
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        String orderBy = request.getParameter("orderBy");
 
         DeckFilterDto.DeckFilterDtoBuilder builder = DeckFilterDto.builder();
 
@@ -44,10 +44,13 @@ public class DeckFilterArgumentResolver
                 .map(OrderDirection::valueOf)
                 .ifPresent(builder::orderDirection);
 
+        Optional.ofNullable(request.getParameter("orderBy"))
+                .map(OrderDecksBy::valueOf)
+                .ifPresent(builder::orderBy);
+
         return builder
                 .name(name)
                 .description(description)
-                .orderBy(orderBy)
                 .build();
 
     }

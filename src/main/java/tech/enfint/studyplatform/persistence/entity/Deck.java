@@ -18,10 +18,8 @@ public class Deck
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<FlashCard> cards;
 
     public Deck()
     {

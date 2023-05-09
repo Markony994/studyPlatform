@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import java.util.UUID;
 
 @Entity
-@Table(name="flashCard", schema = "public")
+@Table(name="flash_card", schema = "public")
 public class FlashCard
 {
     @Id

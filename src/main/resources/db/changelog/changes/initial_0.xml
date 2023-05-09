@@ -18,16 +18,16 @@
             <column name="description" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="creationDate" type="timestamp ">
+            <column name="creation_date" type="timestamp ">
                 <constraints nullable="false" />
             </column>
         </createTable>
-        <createTable tableName="flashCard">
+        <createTable tableName="flash_card">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="question" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="answer" type="varchar(255)">
                 <constraints nullable="false" />
@@ -35,7 +35,7 @@
             <column name="status" type="varchar(10) ">
                 <constraints nullable="false" />
             </column>
-            <column name="deckID" type="uuid ">
+            <column name="deck_id" type="uuid ">
                 <constraints nullable="false" referencedTableName="Deck" foreignKeyName="id"/>
             </column>
         </createTable>

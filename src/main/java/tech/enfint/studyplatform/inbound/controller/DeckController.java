@@ -27,14 +27,14 @@ public class DeckController {
     public List<DeckResponseDTO> getDecks(DeckFilterDto deckFilterDto)
             throws DeckException {
 
-        return deckService.getAllDecks();
+        return deckService.getAllDecksByFilter(deckFilterDto);
     }
 
     @GetMapping(path = "/{deckID}", produces = "application/json")
     public DeckResponseDTO getDeck(@PathVariable(name = "deckID") UUID deckID)
             throws DeckException {
 
-        return deckService.getDeckByID(deckID);
+        return deckService.getDeckResponseDTOByID(deckID);
     }
 
     @Logging(logTypes = {FieldType.ERROR})

@@ -32,7 +32,7 @@ public class FlashCardController
     public List<FlashCardResponseDTO> getCards(@PathVariable(name = "deckID") UUID deckID,
                                                CardFilterDTO cardFilterDTO) {
 
-        return cardService.getCardsByDeckID(deckID);
+        return cardService.getCardsByDeckID(deckID, cardFilterDTO);
     }
 
     @Logging(logTypes = {FieldType.ERROR})
@@ -42,7 +42,7 @@ public class FlashCardController
                                                                       cardRequestDTO)
             throws WebExchangeBindException {
 
-        FlashCardResponseDTO body = cardService.createCard(cardRequestDTO);
+        FlashCardResponseDTO body = cardService.createCard(cardRequestDTO, deckID);
 
         return ResponseEntity.created(URI.create(deckID + "/cards/" + body.getId())).body(body);
     }

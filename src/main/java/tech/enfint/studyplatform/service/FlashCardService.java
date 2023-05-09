@@ -2,10 +2,10 @@ package tech.enfint.studyplatform.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tech.enfint.studyplatform.dto.FlashCardRequestDTO;
-import tech.enfint.studyplatform.dto.FlashCardResponseDTO;
+import tech.enfint.studyplatform.dto.*;
 import tech.enfint.studyplatform.persistence.FlashCardRepository;
 import tech.enfint.studyplatform.persistence.entity.FlashCard;
+import tech.enfint.studyplatform.persistence.entity.OrderDirection;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,14 +17,19 @@ public class FlashCardService
     @Autowired
     private FlashCardRepository cardRepository;
     private final FlashCardMapper cardMapper;
+    private final DeckService deckService;
 
-    public FlashCardService(FlashCardMapper cardMapper) {
+    public FlashCardService(FlashCardMapper cardMapper, DeckService deckService) {
         this.cardMapper = cardMapper;
+        this.deckService = deckService;
     }
 
-    public FlashCardResponseDTO createCard(FlashCardRequestDTO cardRequestDTO)
+    public FlashCardResponseDTO createCard(FlashCardRequestDTO cardRequestDTO, UUID deckID)
     {
-        FlashCard card = cardRepository.save(cardMapper.flashCardRequestDtoToFlashCard(cardRequestDTO));
+        FlashCard _card = cardMapper.flashCardRequestDtoToFlashCard(cardRequestDTO);
+        _card.setDeck(deckService.getDeckByID(deckID));
+
+        FlashCard card = cardRepository.save(_card);
 
         return cardMapper.flashCardToFlashCardResponseDTO(card);
     }
@@ -39,14 +44,58 @@ public class FlashCardService
         return null;
     }
 
-    public List<FlashCardResponseDTO> getCardsByDeckID(UUID deckID)
+    public List<FlashCardResponseDTO> getCardsByDeckID(UUID deckID, CardFilterDTO cardFilterDTO)
     {
-        List<FlashCard> allCards = (List<FlashCard>) cardRepository.findAll();
+        boolean _words = cardFilterDTO.getWords() != null
+                && cardFilterDTO.getWords().get(0) != null;
 
-        return allCards.stream()
-                .filter(card -> card.getDeck().getId() == deckID)
+        List<FlashCardResponseDTO> flashCardResponseDTOList =
+                ((List<FlashCard>) cardRepository.findAll())
+                .stream()
+                .filter(card -> card.getDeck().getId().equals(deckID))
+                .filter(card->
+                        {
+                            if(_words)
+                            {
+                                return cardFilterDTO.getWords().stream()
+                                        .anyMatch(word->
+                                                card.getAnswer().contains(word) ||
+                                                card.getQuestion().contains(word));
+                            }
+
+                            return true;
+                        })
                 .map(cardMapper::flashCardToFlashCardResponseDTO)
                 .collect(Collectors.toList());
+
+        if(cardFilterDTO.getOrderBy() != null)
+        {
+            switch (cardFilterDTO.getOrderBy()) {
+                case ANSWER -> {
+                    if (cardFilterDTO.getOrderDirection().equals(OrderDirection.DESC)) {
+                        flashCardResponseDTOList.sort(new FlashCardResponseDtoComparatorByAnswer().reversed());
+                    } else {
+                        flashCardResponseDTOList.sort(new FlashCardResponseDtoComparatorByAnswer());
+                    }
+                }
+                case QUESTION -> {
+                    if (cardFilterDTO.getOrderDirection().equals(OrderDirection.DESC)) {
+                        flashCardResponseDTOList.sort(new FlashCardResponseDtoComparatorByQuestion().reversed());
+                    } else {
+                        flashCardResponseDTOList.sort(new FlashCardResponseDtoComparatorByQuestion());
+                    }
+                }
+                case STATUS -> {
+                    if (cardFilterDTO.getOrderDirection().equals(OrderDirection.DESC)) {
+                        flashCardResponseDTOList.sort(new FlashCardResponseDtoComparatorByStatus().reversed());
+                    } else {
+                        flashCardResponseDTOList.sort(new FlashCardResponseDtoComparatorByStatus());
+                    }
+                }
+            }//switch (cardFilterDTO.getOrderBy())
+        }//if(cardFilterDTO.getOrderBy() != null)
+
+        return flashCardResponseDTOList;
     }
 
     public List<FlashCardResponseDTO> getAllCards()

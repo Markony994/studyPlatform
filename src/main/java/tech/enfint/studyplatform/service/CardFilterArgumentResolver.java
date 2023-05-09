@@ -7,6 +7,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import tech.enfint.studyplatform.dto.CardFilterDTO;
+import tech.enfint.studyplatform.persistence.entity.OrderCardsBy;
 import tech.enfint.studyplatform.persistence.entity.OrderDirection;
 
 import java.util.Collections;
@@ -32,7 +33,6 @@ public class CardFilterArgumentResolver
                 = (HttpServletRequest) nativeWebRequest.getNativeRequest();
 
         List<String> words = Collections.singletonList(request.getParameter("words"));
-        String orderBy = request.getParameter("orderBy");
 
         CardFilterDTO.CardFilterDTOBuilder builder = CardFilterDTO.builder();
 
@@ -40,9 +40,12 @@ public class CardFilterArgumentResolver
                 .map(OrderDirection::valueOf)
                 .ifPresent(builder::orderDirection);
 
+        Optional.ofNullable(request.getParameter("orderBy"))
+                .map(OrderCardsBy::valueOf)
+                .ifPresent(builder::orderBy);
+
         return builder
                 .words(words)
-                .orderBy(orderBy)
                 .build();
     }
 }
