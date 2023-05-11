@@ -1,14 +1,20 @@
 package tech.enfint.studyplatform.service;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import tech.enfint.studyplatform.dto.*;
 import tech.enfint.studyplatform.persistence.DeckRepository;
 import tech.enfint.studyplatform.persistence.entity.Deck;
+import tech.enfint.studyplatform.persistence.entity.Deck_;
 import tech.enfint.studyplatform.persistence.entity.OrderDirection;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -17,6 +23,42 @@ public class DeckService {
     @Autowired
     private DeckRepository deckRepository;
     private final DeckMapper deckMapper;
+
+    private Specification<Deck> nameLike(String name){
+        return new Specification<Deck>() {
+            @Override
+            public Predicate toPredicate(Root<Deck> root,
+                                         CriteriaQuery<?> query,
+                                         CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.like(criteriaBuilder.lower(root.get(Deck_.NAME)),
+                        name == null ? "%" : "%"+name.toLowerCase()+"%");
+            }
+        };
+    }
+
+    private Specification<Deck> descriptionLike(String description){
+        return new Specification<Deck>() {
+            @Override
+            public Predicate toPredicate(Root<Deck> root,
+                                         CriteriaQuery<?> query,
+                                         CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.like(criteriaBuilder.lower(root.get(Deck_.DESCRIPTION)),
+                        description == null ? "%" : "%"+description.toLowerCase()+"%");
+            }
+        };
+    }
+
+    private Specification<Deck> creationDateEqual(LocalDateTime creationDate){
+        return new Specification<Deck>() {
+            @Override
+            public Predicate toPredicate(Root<Deck> root,
+                                         CriteriaQuery<?> query,
+                                         CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get(Deck_.CREATION_DATE),
+                        creationDate == null ? root.get(Deck_.CREATION_DATE) : creationDate);
+            }
+        };
+    }
 
     public DeckService() {
         this.deckMapper = new DeckMapper();
@@ -51,52 +93,14 @@ public class DeckService {
         return null;
     }
 
-    public List<DeckResponseDTO> getAllDecksByFilter(DeckFilterDto deckFilterDto)
+    public List<DeckResponseDTO>  getAllDecksByFilter(DeckFilterDto deckFilterDto)
     {
-        boolean _name = deckFilterDto.getName() != null;
-        boolean _description = deckFilterDto.getDescription() != null;
-        boolean _creationDate = deckFilterDto.getCreationDate() != null;
 
-        List<DeckResponseDTO> deckResponseDTOList =
-         ((List<Deck>) deckRepository.findAll())
+        List<DeckResponseDTO> deckResponseDTOList = deckRepository.findAll(
+                Specification.where(nameLike(deckFilterDto.getName()))
+                        .and(descriptionLike(deckFilterDto.getDescription()))
+                        .and(creationDateEqual(deckFilterDto.getCreationDate())))
                 .stream()
-                .filter(deck ->
-                            {
-                                if(_name)
-                                {
-                                    return Objects.equals(deck.getName(), deckFilterDto.getName());
-                                }
-                                else
-                                {
-                                    return true;
-                                }
-                            }
-                )
-                .filter(deck ->
-                        {
-                            if(_description)
-                            {
-                                return deck.getDescription()
-                                        .equalsIgnoreCase(deckFilterDto.getDescription());
-                            }
-                            else
-                            {
-                                return true;
-                            }
-                        }
-                )
-                .filter(deck ->
-                        {
-                            if(_creationDate)
-                            {
-                                return deck.getCreationDate().isEqual(deckFilterDto.getCreationDate());
-                            }
-                            else
-                            {
-                                return true;
-                            }
-                        }
-                )
                 .map(deckMapper::deckToDeckResponseDto)
                 .collect(Collectors.toList());
 
