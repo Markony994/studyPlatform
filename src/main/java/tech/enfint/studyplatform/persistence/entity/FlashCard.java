@@ -6,9 +6,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import java.util.UUID;
 
 @Entity
-@Table(name="flash_card", schema = "public")
-public class FlashCard
-{
+@Table(name = "flash_card", schema = "public")
+public class FlashCard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -18,15 +17,14 @@ public class FlashCard
     @Column(name = "answer", nullable = false)
     private String answer;
     @Column(name = "status", nullable = false)
-    private LeitnerSystem status;
+    private tech.enfint.studyplatform.persistence.entity.LeitnerSystem status;
     @OneToOne(fetch = FetchType.LAZY)
-    private Deck deck;
+    private tech.enfint.studyplatform.persistence.entity.Deck deck;
 
-    public FlashCard()
-    {
+    public FlashCard() {
     }
 
-    public FlashCard(UUID id, String question, String answer, LeitnerSystem status, Deck deck) {
+    public FlashCard(UUID id, String question, String answer, tech.enfint.studyplatform.persistence.entity.LeitnerSystem status, tech.enfint.studyplatform.persistence.entity.Deck deck) {
         this.id = id;
         this.question = question;
         this.answer = answer;
@@ -34,19 +32,18 @@ public class FlashCard
         this.deck = deck;
     }
 
-    public FlashCard(String question, String answer, LeitnerSystem status) {
+    public FlashCard(String question, String answer, tech.enfint.studyplatform.persistence.entity.LeitnerSystem status) {
         this.id = UUID.randomUUID();
         this.question = question;
         this.answer = answer;
         this.status = status;
     }
 
-    public FlashCard(String question, String answer)
-    {
+    public FlashCard(String question, String answer) {
         this.id = UUID.randomUUID();
         this.question = question;
         this.answer = answer;
-        this.status = LeitnerSystem.REPEAT;
+        this.status = tech.enfint.studyplatform.persistence.entity.LeitnerSystem.REPEAT;
     }
 
     public UUID getId() {
@@ -61,11 +58,11 @@ public class FlashCard
         return answer;
     }
 
-    public LeitnerSystem getStatus() {
+    public tech.enfint.studyplatform.persistence.entity.LeitnerSystem getStatus() {
         return status;
     }
 
-    public Deck getDeck() {
+    public tech.enfint.studyplatform.persistence.entity.Deck getDeck() {
         return deck;
     }
 
@@ -77,11 +74,11 @@ public class FlashCard
         this.answer = answer;
     }
 
-    public void setStatus(LeitnerSystem status) {
+    public void setStatus(tech.enfint.studyplatform.persistence.entity.LeitnerSystem status) {
         this.status = status;
     }
 
-    public void setDeck(Deck deck) {
+    public void setDeck(tech.enfint.studyplatform.persistence.entity.Deck deck) {
         this.deck = deck;
     }
 

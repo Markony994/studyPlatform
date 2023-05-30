@@ -22,8 +22,7 @@ import java.util.UUID;
 @RequestMapping("/flashCards")
 @RequiredArgsConstructor
 @Slf4j
-public class FlashCardController
-{
+public class FlashCardController {
     private final FlashCardService cardService;
     private final FlashCardMapper cardMapper;
 
@@ -58,7 +57,7 @@ public class FlashCardController
     public void updateCardInDeck(@PathVariable(name = "deckID") UUID deckID,
                                  @PathVariable(name = "cardID") UUID cardID,
                                  @RequestBody @Valid FlashCardRequestDTO
-                                             cardRequestDTO) {
+                                         cardRequestDTO) {
 
         cardService.updateCard(cardRequestDTO, cardID);
 

@@ -9,8 +9,7 @@ import java.util.List;
 
 @Value
 @Builder
-public class CardFilterDTO
-{
+public class CardFilterDTO {
     List<String> words;
     OrderCardsBy orderBy;
     @Builder.Default

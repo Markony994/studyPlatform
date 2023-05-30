@@ -5,8 +5,7 @@ import org.springframework.http.HttpStatus;
 import java.util.Arrays;
 import java.util.List;
 
-public class ErrorDTO
-{
+public class ErrorDTO {
 
     private HttpStatus status;
     private String message;

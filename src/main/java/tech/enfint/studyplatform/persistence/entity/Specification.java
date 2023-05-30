@@ -3,7 +3,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
-interface Specification<T>{
+interface Specification<T> {
 
     Predicate toPredicate(Root<T> root,
                           CriteriaQuery<?> query,

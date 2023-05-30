@@ -1,6 +1,5 @@
 package tech.enfint.studyplatform.persistence.entity;
 
-public enum OrderDecksBy
-{
+public enum OrderDecksBy {
     NAME, DESCRIPTION, CREATION_DATE
 }

@@ -8,8 +8,7 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class FlashCardResponseDTO
-{
+public class FlashCardResponseDTO {
     UUID id;
     String question;
     String answer;

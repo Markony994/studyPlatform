@@ -9,6 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface FlashCardRepository extends CrudRepository<FlashCard, UUID>,
-        JpaSpecificationExecutor<FlashCard>
-{
+        JpaSpecificationExecutor<FlashCard> {
 }

@@ -7,9 +7,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name="deck", schema = "public")
-public class Deck
-{
+@Table(name = "deck", schema = "public")
+public class Deck {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -21,8 +20,7 @@ public class Deck
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
-    public Deck()
-    {
+    public Deck() {
 
     }
 

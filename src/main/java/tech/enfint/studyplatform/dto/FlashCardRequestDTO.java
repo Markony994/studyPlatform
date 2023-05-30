@@ -1,7 +1,6 @@
 package tech.enfint.studyplatform.dto;
 
-public class FlashCardRequestDTO
-{
+public class FlashCardRequestDTO {
     private String question;
     private String answer;
 

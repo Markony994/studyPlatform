@@ -7,7 +7,7 @@ info:
     email: markonovakovic994@gmail.com
   license:
     name: Apache 2.0
-    url:  http://springdoc.org
+    url: http://springdoc.org
   version: 1.0.0+
 servers:
   - url: https://localhost
@@ -498,7 +498,7 @@ components:
           type: string
         importance:
           type: string
-          enum: [REPEAT, HARD, GOOD, EASY]
+          enum: [ REPEAT, HARD, GOOD, EASY ]
         deck:
           $ref: '#/components/schemas/DeckResponseDTO'
     ErrorDTO:

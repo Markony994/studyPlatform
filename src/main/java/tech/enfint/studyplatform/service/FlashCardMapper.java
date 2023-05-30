@@ -12,8 +12,7 @@ public class FlashCardMapper {
 
     private final DeckMapper deckMapper;
 
-    public FlashCard flashCardRequestDtoToFlashCard(FlashCardRequestDTO flashCardRequestDTO)
-    {
+    public FlashCard flashCardRequestDtoToFlashCard(FlashCardRequestDTO flashCardRequestDTO) {
         return new FlashCard(
                 flashCardRequestDTO.getQuestion(),
                 flashCardRequestDTO.getAnswer());

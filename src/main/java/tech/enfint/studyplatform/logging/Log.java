@@ -13,12 +13,10 @@ import java.util.List;
 
 @Aspect
 @Component
-public class Log
-{
+public class Log {
 
     @Around("@annotation(Logging)")
-    public Object logAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable
-    {
+    public Object logAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         Method method = signature.getMethod();
 
@@ -28,15 +26,13 @@ public class Log
         Logging myAnnotation = method.getAnnotation(Logging.class);
         List<FieldType> types = List.of(myAnnotation.logTypes());
 
-        if(types.contains(FieldType.ENTRY))
-        {
+        if (types.contains(FieldType.ENTRY)) {
             String name = proceedingJoinPoint.getSignature().getName();
             Object[] args = proceedingJoinPoint.getArgs();
 
             String stringArgs = args[0].toString();
 
-            for(int i = 1; i < args.length; i++)
-            {
+            for (int i = 1; i < args.length; i++) {
                 stringArgs += ", " + args[i].toString();
             }
 
@@ -46,20 +42,15 @@ public class Log
 
         Object returnValue = null;
 
-        try
-        {
+        try {
             returnValue = proceedingJoinPoint.proceed();
 
-            if(types.contains(FieldType.EXIT))
-            {
+            if (types.contains(FieldType.EXIT)) {
                 logger.info("Method finished running successfully: " + returnValue);
             }
 
-        }
-        catch (Exception ex)
-        {
-            if(types.contains(FieldType.ERROR))
-            {
+        } catch (Exception ex) {
+            if (types.contains(FieldType.ERROR)) {
                 logger.error("Method finished running with error:\n" + ex);
 
                 throw ex;
